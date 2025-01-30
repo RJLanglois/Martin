@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Ministres du Québec</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin: 20px; }
+        .question { font-size: 1.2em; margin-bottom: 10px; }
+        .options { list-style: none; padding: 0; }
+        .options li { margin: 5px 0; }
+        button { margin-top: 10px; padding: 10px; }
+    </style>
+</head>
+<body>
+    <h1>Quiz sur les ministres de l'Éducation du Québec</h1>
+    <div id="quiz"></div>
+    <button onclick="nextQuestion()">Question Suivante</button>
+    <p id="score"></p>
+
+    <script>
+        const questions = [
+            { question: "Qui était ministre en 1996?", options: ["Jean Garon", "Pauline Marois", "François Legault", "Lucienne Robillard"], answer: "Pauline Marois" },
+            { question: "Qui a remplacé Line Beauchamp en 2012?", options: ["Marie Malavoy", "Michelle Courchesne", "Yves Bolduc", "François Blais"], answer: "Michelle Courchesne" },
+            { question: "Qui était ministre entre 2018 et 2022?", options: ["Jean-François Roberge", "Bernard Drainville", "Sébastien Proulx", "Pierre Moreau"], answer: "Jean-François Roberge" },
+            { question: "En quelle année François Legault est-il devenu ministre?", options: ["1996", "1998", "2000", "2002"], answer: "1998" },
+            { question: "Qui était ministre en 2005?", options: ["Jean-Marc Fournier", "Pierre Reid", "Michelle Courchesne", "Sylvain Simard"], answer: "Jean-Marc Fournier" },
+            { question: "Qui était ministre en 1990?", options: ["Michel Pagé", "Lucienne Robillard", "Jacques Chagnon", "Jean Garon"], answer: "Michel Pagé" },
+            { question: "Quel ministre a servi entre 2007 et 2008?", options: ["Michelle Courchesne", "Pierre Reid", "Jean-Marc Fournier", "Line Beauchamp"], answer: "Michelle Courchesne" },
+            { question: "Qui a remplacé François Blais en 2016?", options: ["Pierre Moreau", "Sébastien Proulx", "Jean-François Roberge", "Bernard Drainville"], answer: "Pierre Moreau" },
+            { question: "Qui était ministre en 1994?", options: ["Jacques Chagnon", "Jean Garon", "Pauline Marois", "Michel Pagé"], answer: "Jacques Chagnon" },
+            { question: "Quel ministre était en poste en 2002?", options: ["Sylvain Simard", "Pierre Reid", "Jean-Marc Fournier", "François Legault"], answer: "Sylvain Simard" },
+            { question: "Qui était ministre en 2014?", options: ["Yves Bolduc", "Marie Malavoy", "Pierre Moreau", "Sébastien Proulx"], answer: "Yves Bolduc" },
+            { question: "En quelle année Bernard Drainville a-t-il été nommé ministre?", options: ["2018", "2022", "2020", "2016"], answer: "2022" },
+            { question: "Qui a été ministre après Pauline Marois?", options: ["François Legault", "Sylvain Simard", "Pierre Reid", "Jean Garon"], answer: "François Legault" },
+            { question: "Quel ministre était en fonction en 2008?", options: ["Line Beauchamp", "Michelle Courchesne", "Yves Bolduc", "Jean-François Roberge"], answer: "Line Beauchamp" },
+            { question: "Qui a remplacé Sébastien Proulx en 2018?", options: ["Jean-François Roberge", "Bernard Drainville", "Pierre Moreau", "Yves Bolduc"], answer: "Jean-François Roberge" },
+            { question: "Quel ministre a remplacé Marie Malavoy en 2014?", options: ["Yves Bolduc", "Pierre Moreau", "Sébastien Proulx", "Jean-François Roberge"], answer: "Yves Bolduc" }
+        ];
+        
+        let currentQuestion = 0;
+        let score = 0;
+
+        function loadQuestion() {
+            if (currentQuestion >= questions.length) {
+                document.getElementById("quiz").innerHTML = "Quiz terminé! Score: " + score + "/" + questions.length;
+                return;
+            }
+            
+            const q = questions[currentQuestion];
+            let quizDiv = document.getElementById("quiz");
+            quizDiv.innerHTML = `<div class='question'>${q.question}</div><ul class='options'>` + 
+                q.options.map(option => `<li><button onclick="checkAnswer('${option}')">${option}</button></li>`).join('') + `</ul>`;
+        }
+        
+        function checkAnswer(answer) {
+            if (answer === questions[currentQuestion].answer) {
+                score++;
+            }
+            currentQuestion++;
+            loadQuestion();
+        }
+        
+        function nextQuestion() {
+            loadQuestion();
+        }
+        
+        loadQuestion();
+    </script>
+</body>
+</html>
